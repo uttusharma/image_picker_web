@@ -49,25 +49,21 @@ class ImagePickerWeb {
     switch (outputType) {
       case ImageType.file:
         return await ImagePickerWeb()._pickFile('image');
-        break;
+
       case ImageType.bytes:
-        final data =
-            await (_methodChannel.invokeMapMethod<String, dynamic>('pickImage')
-                as Future<Map<String, dynamic>>);
-        final imageData = base64.decode(data['data']);
+        final data = await (_methodChannel
+            .invokeMapMethod<String, dynamic>('pickImage'));
+        final imageData = base64.decode(data!['data']);
         return imageData;
-        break;
+
       case ImageType.widget:
-        final data =
-            await (_methodChannel.invokeMapMethod<String, dynamic>('pickImage')
-                as Future<Map<String, dynamic>>);
-        final imageName = data['name'];
+        final data = await (_methodChannel
+            .invokeMapMethod<String, dynamic>('pickImage'));
+        final imageName = data!['name'];
         final imageData = base64.decode(data['data']);
         return Image.memory(imageData, semanticLabel: imageName);
-        break;
       default:
         return null;
-        break;
     }
   }
 
@@ -91,26 +87,23 @@ class ImagePickerWeb {
     switch (outputType) {
       case VideoType.file:
         return await ImagePickerWeb()._pickFile('video');
-        break;
+
       case VideoType.bytes:
-        final data =
-            await (_methodChannel.invokeMapMethod<String, dynamic>('pickVideo')
-                as Future<Map<String, dynamic>>);
-        final imageData = base64.decode(data['data']);
+        final data = await (_methodChannel
+            .invokeMapMethod<String, dynamic>('pickVideo'));
+        final imageData = base64.decode(data!['data']);
         return imageData;
-        break;
+
       default:
         return null;
-        break;
     }
   }
 
   static Future<MediaInfo> get getVideoInfo async {
     final data =
-        await (_methodChannel.invokeMapMethod<String, dynamic>('pickVideo')
-            as Future<Map<String, dynamic>>);
+        await (_methodChannel.invokeMapMethod<String, dynamic>('pickVideo'));
     MediaInfo _webVideoInfo = MediaInfo();
-    _webVideoInfo.fileName = data['name'];
+    _webVideoInfo.fileName = data!['name'];
     _webVideoInfo.base64 = data['data'];
     _webVideoInfo.base64WithScheme = data['data_scheme'];
     _webVideoInfo.data = base64.decode(data['data']);
