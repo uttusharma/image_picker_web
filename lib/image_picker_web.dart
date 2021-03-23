@@ -53,14 +53,14 @@ class ImagePickerWeb {
       case ImageType.bytes:
         final data =
             await (_methodChannel.invokeMapMethod<String, dynamic>('pickImage')
-                as FutureOr<Map<String, dynamic>>);
+                as Future<Map<String, dynamic>>);
         final imageData = base64.decode(data['data']);
         return imageData;
         break;
       case ImageType.widget:
         final data =
             await (_methodChannel.invokeMapMethod<String, dynamic>('pickImage')
-                as FutureOr<Map<String, dynamic>>);
+                as Future<Map<String, dynamic>>);
         final imageName = data['name'];
         final imageData = base64.decode(data['data']);
         return Image.memory(imageData, semanticLabel: imageName);
@@ -74,7 +74,7 @@ class ImagePickerWeb {
   static Future<MediaInfo> get getImageInfo async {
     final data =
         await (_methodChannel.invokeMapMethod<String, dynamic>('pickImage')
-            as FutureOr<Map<String, dynamic>>);
+            as Future<Map<String, dynamic>>);
     MediaInfo _webImageInfo = MediaInfo();
     _webImageInfo.fileName = data['name'];
     _webImageInfo.base64 = data['data'];
@@ -95,7 +95,7 @@ class ImagePickerWeb {
       case VideoType.bytes:
         final data =
             await (_methodChannel.invokeMapMethod<String, dynamic>('pickVideo')
-                as FutureOr<Map<String, dynamic>>);
+                as Future<Map<String, dynamic>>);
         final imageData = base64.decode(data['data']);
         return imageData;
         break;
@@ -108,7 +108,7 @@ class ImagePickerWeb {
   static Future<MediaInfo> get getVideoInfo async {
     final data =
         await (_methodChannel.invokeMapMethod<String, dynamic>('pickVideo')
-            as FutureOr<Map<String, dynamic>>);
+            as Future<Map<String, dynamic>>);
     MediaInfo _webVideoInfo = MediaInfo();
     _webVideoInfo.fileName = data['name'];
     _webVideoInfo.base64 = data['data'];
